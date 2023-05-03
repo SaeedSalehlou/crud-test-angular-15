@@ -1,0 +1,68 @@
+<div>
+
+    <div style="margin: 10px;">
+        <div>
+            <button mat-flat-button color="primary" (click)="addCustomer()" style="margin: 8px;">Add
+            </button>
+            <button mat-flat-button color="warn" (click)="deleteAll()">Delete All</button>
+
+        </div>
+        <div>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- Id Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Id. </th>
+                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                </ng-container>
+                <!-- Firstname Column -->
+                <ng-container matColumnDef="firstname">
+                    <th mat-header-cell *matHeaderCellDef> Firstname </th>
+                    <td mat-cell *matCellDef="let row"> {{row.firstname}} </td>
+                </ng-container>
+                <!-- lastname Column -->
+                <ng-container matColumnDef="lastname">
+                    <th mat-header-cell *matHeaderCellDef> Lastname </th>
+                    <td mat-cell *matCellDef="let row"> {{row.lastname}} </td>
+                </ng-container>
+                <!-- dateOfBirth Column -->
+                <ng-container matColumnDef="dateOfBirth">
+                    <th mat-header-cell *matHeaderCellDef> Date Of Birth </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dateOfBirth | date:'mediumDate'}} </td>
+                </ng-container>
+                <!-- PhoneNumber Column -->
+                <ng-container matColumnDef="phoneNumber">
+                    <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                    <td mat-cell *matCellDef="let row"> {{row.phoneNumber}} </td>
+                </ng-container>
+                <!-- email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                </ng-container>
+                <!-- bankAccountNumber Column -->
+                <ng-container matColumnDef="bankAccountNumber">
+                    <th mat-header-cell *matHeaderCellDef> Bank Account Number </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div *ngIf="currentRow!=row.id">
+                            {{row.bankAccountNumber}}
+                        </div>
+                        <div *ngIf="currentRow==row.id">
+                            <button mat-icon-button color="primary" (click)="editCustomer(row)"
+                                aria-label="Example icon button with a home icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="deleteCustomer(row)"
+                                aria-label="Example icon button with a home icon">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (mouseenter)="currentRow=row.id"
+                    (mouseleave)="currentRow=-1" (dblclick)="editCustomer(row)"></tr>
+            </table>
+        </div>
+    </div>
+
+</div>
